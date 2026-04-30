@@ -448,8 +448,8 @@ function App() {
 
           <div className="profile-menu-grid">
             {[
-              { icon: '📁', label: 'Төрд байгаа миний мэдээлэл', action: () => { setShowMyInfo(true); setShowProfile(false); } },
-              { icon: '📋', label: 'Бичиг баримт' },
+              { icon: '📁', label: 'Төрд байгаа миний мэдээлэл', action: () => { setActiveInfoTab('myinfo'); setShowMyInfo(true); setShowProfile(false); } },
+              { icon: '📋', label: 'Бичиг баримт', action: () => { setActiveInfoTab('docs'); setShowMyInfo(true); setShowProfile(false); } },
               { icon: '✉️', label: 'Үндэсний шуудан' },
               { icon: '📄', label: 'Үйлчилгээний түүх' },
               { icon: '🏅', label: 'Талархал' },
