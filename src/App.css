@@ -630,7 +630,7 @@ body {
 .profile-page {
   position: relative;
   background: #f4f7fb;
-  padding: 16px 16px 24px;
+  padding: calc(16px + env(safe-area-inset-top, 0px)) 16px 24px;
   animation: slideUp 0.28s cubic-bezier(0.4,0,0.2,1);
 }
 
