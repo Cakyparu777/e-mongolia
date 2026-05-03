@@ -27,6 +27,15 @@ function App() {
     setIsFlipped(false)
   }
 
+  const openProfilePage = () => {
+    setShowProfile(true)
+    setShowMyInfo(false)
+    setShowIdModal(false)
+    setIsFlipped(false)
+    setActiveTab('profile')
+    window.scrollTo({ top: 0, behavior: 'auto' })
+  }
+
   useEffect(() => {
     if (pin.length === 4) {
       if (pin === '0102') {
@@ -103,7 +112,7 @@ function App() {
                     <path d="M10 21a2 2 0 004 0" />
                   </svg>
                 </button>
-                <button className="header-icon-btn" aria-label="Menu" onClick={() => setShowProfile(p => !p)}>
+                <button className="header-icon-btn" aria-label="Menu" onClick={openProfilePage}>
                   <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#3a86ff" strokeWidth="2.5" strokeLinecap="round">
                     <line x1="4" y1="7" x2="20" y2="7" />
                     <line x1="4" y1="13" x2="20" y2="13" />
@@ -117,6 +126,7 @@ function App() {
       )}
 
       {/* Main Content */}
+      {!showProfile && !showMyInfo && (
       <main className="main-content home-v2">
         {/* Hero */}
         <section className="hero hero-v2">
@@ -347,8 +357,10 @@ function App() {
           </div>
         </section>
       </main>
+      )}
 
-      {/* Footer (shown on all pages) */}
+      {/* Footer */}
+      {!showProfile && !showMyInfo && (
       <footer className="site-footer">
         <div className="footer-top">
           <img src={emongoliaLogo} alt="e-mongolia" className="footer-logo" />
@@ -414,8 +426,10 @@ function App() {
 
         <p className="footer-copy">© Бүх эрх хуулиар хамгаалагдсан 2026</p>
       </footer>
+      )}
 
       {/* Floating Action Buttons */}
+      {!showProfile && !showMyInfo && (
       <div className="fab-group">
         <button className="fab-btn" aria-label="Support">
           <svg viewBox="0 0 24 24" width="22" height="22" fill="#1a1a1a"><path d="M12 2a5 5 0 015 5v3a5 5 0 01-10 0V7a5 5 0 015-5zm0 12c4 0 8 2 8 6v2H4v-2c0-4 4-6 8-6z" /><circle cx="19" cy="7" r="4" fill="#3a86ff" /><text x="19" y="10" textAnchor="middle" fontSize="6" fill="white">i</text></svg>
@@ -436,6 +450,7 @@ function App() {
           </svg>
         </button>
       </div>
+      )}
 
       {/* ID modal — bottom sheet */}
       {showIdModal && (
@@ -730,7 +745,7 @@ function App() {
         </button>
         <button
           className={`nav-item ${(showProfile || showMyInfo) ? 'active' : ''}`}
-          onClick={() => { setShowProfile(p => !p); setShowMyInfo(false) }}
+          onClick={openProfilePage}
         >
           <div className="nav-icon">
             <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="4" /><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" /></svg>
