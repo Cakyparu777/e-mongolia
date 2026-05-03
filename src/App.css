@@ -628,23 +628,15 @@ body {
 
 /* ===== Profile Page ===== */
 .profile-page {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  max-width: 480px;
+  position: relative;
   background: #f4f7fb;
-  z-index: 60;
-  overflow-y: auto;
-  padding: calc(130px + env(safe-area-inset-top)) 16px calc(110px + env(safe-area-inset-bottom));
+  padding: 16px 16px 24px;
   animation: slideUp 0.28s cubic-bezier(0.4,0,0.2,1);
 }
 
 @keyframes slideUp {
-  from { transform: translateX(-50%) translateY(40px); opacity: 0; }
-  to   { transform: translateX(-50%) translateY(0);   opacity: 1; }
+  from { transform: translateY(20px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
 }
 
 .profile-page-header {
