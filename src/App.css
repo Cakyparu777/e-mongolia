@@ -2070,3 +2070,122 @@ body {
   color: var(--primary-blue);
   border: 1.5px solid var(--primary-blue);
 }
+
+/* ===== Auth (PIN) screen ===== */
+.auth-screen {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(180deg, #e9f1fc 0%, #eef4fc 60%, #f5f8fc 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: calc(60px + env(safe-area-inset-top, 0px)) 24px calc(40px + env(safe-area-inset-bottom, 0px));
+  z-index: 200;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.auth-title {
+  margin-top: 50px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-dark);
+  line-height: 1.4;
+  max-width: 320px;
+}
+
+.auth-pin-row {
+  display: flex;
+  gap: 14px;
+  margin-top: 60px;
+}
+
+.auth-pin-box {
+  width: 56px;
+  height: 64px;
+  border-radius: 14px;
+  background: #e7eaf0;
+  border: 2px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.auth-pin-box.active {
+  background: #fff;
+  border-color: var(--primary-blue);
+}
+
+.auth-pin-box.filled {
+  background: #fff;
+  border-color: var(--primary-blue);
+}
+
+.auth-pin-box.error {
+  border-color: #f25a4f;
+  background: #ffe7e3;
+}
+
+.auth-pin-dot {
+  width: 14px;
+  height: 14px;
+  background: var(--primary-blue);
+  border-radius: 50%;
+}
+
+.auth-pin-box.error .auth-pin-dot {
+  background: #f25a4f;
+}
+
+.auth-pin-input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  width: 1px;
+  height: 1px;
+}
+
+.auth-links {
+  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-self: flex-start;
+  width: 100%;
+}
+
+.auth-link {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-dark);
+  cursor: pointer;
+}
+
+.auth-sos {
+  margin-top: auto;
+  width: 100%;
+  padding: 18px;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #d83a2c 0%, #e85a4d 100%);
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(216, 58, 44, 0.35);
+}
+
+@keyframes pinShake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(8px); }
+  60% { transform: translateX(-6px); }
+  80% { transform: translateX(6px); }
+}
+
+.auth-pin-row.shake {
+  animation: pinShake 0.4s;
+}

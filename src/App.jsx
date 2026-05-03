@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import './App.css'
 import idCardFront from './assets/607692426_843446245231969_1449603800468838469_n.jpg'
 import idCardBack from './assets/598918111_901306892463898_7558760081298208592_n.jpg'
@@ -8,6 +8,10 @@ import parliamentImg from './assets/parliament_building.png'
 import serviceCenterImg from './assets/service_center.png'
 
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [pin, setPin] = useState('')
+  const [pinError, setPinError] = useState(false)
+  const pinInputRef = useRef(null)
   const [activeTab, setActiveTab] = useState('home')
   const [showProfile, setShowProfile] = useState(false)
   const [showMyInfo, setShowMyInfo] = useState(false)
@@ -21,6 +25,53 @@ function App() {
   const handleCloseModal = () => {
     setShowIdModal(false)
     setIsFlipped(false)
+  }
+
+  useEffect(() => {
+    if (pin.length === 4) {
+      if (pin === '0102') {
+        setIsAuthenticated(true)
+        setPinError(false)
+      } else {
+        setPinError(true)
+        const t = setTimeout(() => { setPin(''); setPinError(false) }, 600)
+        return () => clearTimeout(t)
+      }
+    }
+  }, [pin])
+
+  if (!isAuthenticated) {
+    return (
+      <div className="auth-screen" onClick={() => pinInputRef.current?.focus()}>
+        <h2 className="auth-title">Та пин кодоо оруулан системд нэвтэрнэ үү</h2>
+        <div className={`auth-pin-row ${pinError ? 'shake' : ''}`}>
+          {[0, 1, 2, 3].map((i) => (
+            <div
+              key={i}
+              className={`auth-pin-box ${pin.length === i ? 'active' : ''} ${pin.length > i ? 'filled' : ''} ${pinError ? 'error' : ''}`}
+            >
+              {pin.length > i && <span className="auth-pin-dot" />}
+            </div>
+          ))}
+        </div>
+        <input
+          ref={pinInputRef}
+          className="auth-pin-input"
+          type="tel"
+          inputMode="numeric"
+          autoComplete="one-time-code"
+          autoFocus
+          value={pin}
+          onChange={(e) => setPin(e.target.value.replace(/\D/g, '').slice(0, 4))}
+          maxLength={4}
+        />
+        <div className="auth-links">
+          <a className="auth-link">Пин кодоо мартсан?</a>
+          <a className="auth-link">Өөр хэрэглэгчээр нэвтрэх</a>
+        </div>
+        <button className="auth-sos">SOS</button>
+      </div>
+    )
   }
 
   return (
